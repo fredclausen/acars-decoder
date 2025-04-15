@@ -10,19 +10,24 @@ pub mod common;
 pub mod error;
 mod plugins;
 
+use plugins::PluginManager;
+
 #[cfg(feature = "acars_parser")]
 use acars_vdlm2_parser::AcarsVdlm2Message;
 
 use common::{decoded_message::DecodedMessage, get_fields::GetFields, internal_message::Message};
-use serde::{Deserialize, Serialize};
 
-#[derive(Serialize, Deserialize, Debug, Default)]
-pub struct MessageDecoder {}
+#[derive(Debug, Default)]
+pub struct MessageDecoder {
+    plugins: PluginManager,
+}
 
 impl MessageDecoder {
     #[must_use]
     pub fn new() -> Self {
-        MessageDecoder {}
+        MessageDecoder {
+            plugins: PluginManager::new(),
+        }
     }
 
     #[must_use]
@@ -36,7 +41,7 @@ impl MessageDecoder {
             return DecodedMessage::default();
         }
 
-        DecodedMessage::default()
+        self.plugins.decode(&message)
     }
 }
 
