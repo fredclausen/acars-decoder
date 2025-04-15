@@ -8,6 +8,7 @@ extern crate serde;
 
 pub mod common;
 pub mod error;
+mod plugins;
 
 #[cfg(feature = "acars_parser")]
 use acars_vdlm2_parser::AcarsVdlm2Message;
@@ -29,6 +30,12 @@ impl MessageDecoder {
     where
         T: GetFields,
     {
+        let message = message.get_fields();
+
+        if message.is_default() {
+            return DecodedMessage::default();
+        }
+
         DecodedMessage::default()
     }
 }

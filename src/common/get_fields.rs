@@ -2,7 +2,7 @@ use crate::{Message, error};
 use serde::{Deserialize, Serialize};
 use serde_json::Value;
 
-pub(crate) trait GetFields
+pub trait GetFields
 where
     Self: Serialize + Deserialize<'static>,
 {
