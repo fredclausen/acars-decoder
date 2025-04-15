@@ -1,6 +1,10 @@
 use std::collections::HashMap;
 
+use plugin::Plugin_1J_2J_FTX::Plugin1J2JFTX;
+
 use crate::common::{decoded_message::DecodedMessage, internal_message::Message};
+
+mod plugin;
 
 pub trait DecoderPluginInterface {
     /// Decode a message using the plugin.
@@ -33,15 +37,23 @@ pub struct PluginManager {
 
 impl PluginManager {
     pub fn new() -> Self {
-        PluginManager {
-            plugins: HashMap::new(),
-        }
+        let mut plugins = HashMap::new();
+
+        PluginManager::add_plugin(
+            &mut plugins,
+            &(Box::new(Plugin1J2JFTX::new()) as Box<dyn DecoderPluginInterface>),
+        );
+
+        PluginManager { plugins }
     }
 
-    fn add_plugin(&mut self, plugin: PluginManagerType) {
+    fn add_plugin(
+        plugin_hash: &mut HashMap<String, PluginManagerType>,
+        plugin: &PluginManagerType,
+    ) {
         let qualifiers = plugin.qualifiers();
         for qualifier in qualifiers {
-            self.plugins.insert(qualifier, plugin.clone());
+            plugin_hash.insert(qualifier, plugin.clone());
         }
     }
 

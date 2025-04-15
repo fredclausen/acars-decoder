@@ -9,6 +9,7 @@ extern crate serde;
 pub mod common;
 pub mod error;
 mod plugins;
+pub(crate) mod utils;
 
 use plugins::PluginManager;
 
