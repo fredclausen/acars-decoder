@@ -6,4 +6,16 @@ authors = ["Fred Clausen"]
 license = "MIT"
 
 [dependencies]
+acars_vdlm2_parser = { git = "https://github.com/rpatel3001/acars_vdlm2_parser", branch = "add_imsl_irdm", optional = true }
+anyhow = "1.0.98"
 log = "0.4.27"
+serde = { version = "1.0.219", features = ["derive"] }
+serde_json = { version = "1.0.104" }
+thiserror = "2.0.12"
+
+[dev-dependencies]
+acars_vdlm2_parser = { git = "https://github.com/rpatel3001/acars_vdlm2_parser", branch = "add_imsl_irdm" }
+
+[features]
+default = []
+acars_parser = ["dep:acars_vdlm2_parser"]
