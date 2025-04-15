@@ -12,6 +12,8 @@ log = "0.4.27"
 serde = { version = "1.0.219", features = ["derive"] }
 serde_json = { version = "1.0.104" }
 thiserror = "2.0.12"
+time = { version = "0.3.41", features = ["formatting"] }
+regex = { version = "1.11.1", features = ["unicode"] }
 
 [dev-dependencies]
 acars_vdlm2_parser = { git = "https://github.com/rpatel3001/acars_vdlm2_parser", branch = "add_imsl_irdm" }
